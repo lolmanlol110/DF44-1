@@ -1,0 +1,4 @@
+services:
+  tickets:
+    build: .
+    command: python BotCore.py
