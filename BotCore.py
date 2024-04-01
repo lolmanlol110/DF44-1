@@ -1,4 +1,6 @@
 import asyncio
+from random import random
+
 import discord
 import config
 
@@ -20,9 +22,9 @@ class FModal(discord.ui.Modal):
             self.add_item(discord.ui.InputText(label="Есть пк/ноутбук?", required=True))
         self.add_item(discord.ui.InputText(label="У вас есть опыт работы?", placeholder="Да/Нет. Дополните примерами работ и названиями команд, в которых вы работали, либо работаете", required = True, style=discord.InputTextStyle.long))
         if (self.per):
-            self.add_item(discord.ui.InputText(label='Ответьте на вопрос "Как успехи?"', placeholder="Ответ должен быть на изучаемом вами языке", required=True, style=discord.InputTextStyle.long))
+            self.add_item(discord.ui.InputText(label='Расскажите о себе', placeholder="Ответ должен быть на изучаемом вами языке", required=True, style=discord.InputTextStyle.long))
         else:
-            self.add_item(discord.ui.InputText(label="Как дела с креативностью?)", required=True))
+            self.add_item(discord.ui.InputText(label="Расскажите о себе", required=True, style=discord.InputTextStyle.long))
         self.add_item(discord.ui.InputText(label="Сколько часов в день вы готовы работать?", required=True))
 
     async def callback(self, interaction: discord.Interaction):
@@ -97,9 +99,9 @@ class FModal(discord.ui.Modal):
             embed.add_field(name="Наличие ПК:", value=self.children[1].value, inline=False)
         embed.add_field(name="Наличие опыта и пребывание в других командах:", value=self.children[2].value, inline=False)
         if (self.per):
-            embed.add_field(name="'Как успехи?' на изучаемом языке:", value=self.children[3].value, inline=False)
+            embed.add_field(name="о себе:", value=self.children[3].value, inline=False)
         else:
-            embed.add_field(name="Креативный ответ:", value=self.children[3].value, inline=False)
+            embed.add_field(name="о себе:", value=self.children[3].value, inline=False)
         embed.add_field(name="Сколько часов в день готов работать:", value=self.children[4].value, inline=False)
         await interaction.response.send_message("Спасибо за прохождение!", ephemeral=True)
 
@@ -182,7 +184,8 @@ class MyView(discord.ui.View):
                 label="⌨️Тайпер"
             ),
             discord.SelectOption(
-                label="💫Эдитор"            )
+                label="💫Эдитор"
+            )
         ]
     )
     async def select_callback(self, select, interaction):
